@@ -1,0 +1,260 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Band Times</title>
+		<link rel="stylesheet" href="themes/festivaltime.min.css" />
+        <link rel="stylesheet" href="jquery.mobile.structure-1.3.1.min.css" />
+		<script src="jquery-1.9.1.min.js"></script>
+		<script src="jquery.mobile-1.3.1.min.js"></script>
+        <script src="phonegap.js"></script>
+        <script src="banddatabase.js"></script>
+	
+	</head>
+	<body>
+		<div id="home" data-role="page" data-theme="a">
+               <div data-role="header" data-position="inline">
+                
+                    <h1>Band Times</h1> 
+                 
+                </div>
+               <div class="wrapper">
+                <div class="bg_sun" data-role="content" data-theme="a"  >
+                    
+                        
+                            <div class="whitebox"><img src="themes/images/list.png" height="80" width="80" onClick="gotoDay()" /><br/> MY PLAN</div>
+                            <div class="whitebox"><a href="#" onClick="changme('MAIN STAGE')"><img src="themes/images/stage.png" height="80" width="80" /></a> <br/> STAGES</div>
+                      
+               		
+                    <div id="nowplaying">
+                    NOW: <span id="bandNow"></span> <br/>
+                    Start: <span id="nowStart"></span> End:<span id="nowEnd"></span> <br/><br/>
+                    NEXT: <span id="bandNext"></span> <br/>
+                    Start: <span id="nextStart"></span> End:<span id="nextEnd"></span> <br/>
+                    </div>	
+                    <div id="controls">
+                   <div class="control"><a id="preStage" onClick="preStage()" href="#" data-role="button" data-icon="arrow-l" data-iconpos="notext" data-theme="c" data-inline="true">Previous</a></div>
+                   <div class="controltext mytext"><span id="stageName">STAGE</span></div>
+                   <div class="control"><a id="nextStage" onClick="nextStage()" href="#" data-role="button" data-icon="arrow-r" data-iconpos="notext" data-theme="c" data-inline="true">Next</a></div>
+                    </div>
+                
+                   
+                </div>
+                </div>
+                <!--
+               		 <div data-role="popup" id="selectStagePopUp" data-overlay-theme="a" data-theme="a" data-corners="true" data-position-to="window">
+                              <ul id="stagelist" data-role="listview" data-inset="true" style="min-width:210px;" data-theme="b">
+                                <li data-role="divider" data-theme="c">Select Stage</li>
+                                <li><a href="#" onClick="changme('MAIN STAGE')">MAIN STAGE</a></li>
+                                <li><a href="#" onClick="changme('ZIPPO ENCORE')">ZIPPO ENCORE</a></li>
+                                <li><a href="#" onClick="changme('PEPSI MAX')">PEPSI MAX</a></li>
+                                <li><a href="#" onClick="changme('JAGERMEISTER')">JAGERMEISTER</a></li>
+                                <li><a href="#" onClick="changme('RED BULL')">RED BULL</a></li>
+                            </ul>
+					</div>
+                    -->
+		</div>
+        
+         
+       
+       <div id="stages" data-role="page" data-theme="a">
+       		<div data-role="panel" id="stagepanel" data-position="right" data-display="overlay">
+                        <ul data-role="listview" data-theme="c">
+                            <li><a href="#" onClick="showStage('MAIN STAGE')">MAIN STAGE</a></li>
+                            <li><a href="#" onClick="showStage('ZIPPO ENCORE')">ZIPPO ENCORE</a></li>
+                            <li><a href="#" onClick="showStage('PEPSI MAX')">PEPSI MAX</a></li>
+                            <li><a href="#" onClick="showStage('JAGERMEISTER')">JAGERMEISTER</a></li>
+                            <li><a href="#" onClick="showStage('RED BULL')">RED BULL</a></li>
+                        </ul>
+        	</div>
+            
+            
+                <div data-role="header" data-position="inline">
+                <a  href="#" data-rel="back" data-icon="home" data-iconpos="notext" data-theme="c" data-transition="slide">Home</a>
+                    <h1 id="stageHeading">Stage</h1>
+                 <a href="#stagepanel" data-icon="gear" data-theme="c" data-iconpos="right">Stages</a>
+                </div>
+                
+                	<div class="wrapper">
+               	 	<div id="bg_band" data-role="content" data-theme="a"  >
+               			<div data-role="controlgroup" data-type="horizontal"  data-mini="true" style="text-align:center;">
+                            <a href="#" id="friday" data-role="button" data-theme="b">Friday</a>
+                            <a href="#" id="saturday" data-role="button" data-theme="c">Saturday</a>
+                            <a href="#" id="sunday" data-role="button" data-theme="c">Sunday</a>
+                        </div>
+                   		<div id="bandholder">
+                        </div>
+                	</div>
+                    </div>
+                </div>
+       
+        
+        
+        
+        
+        
+        
+        
+        
+        
+         <div id="planDay" data-role="page" data-theme="a">
+       		<div data-role="panel" id="daypanel" data-position="right" data-display="overlay">
+                        <ul data-role="listview" data-theme="c">
+                            <li><a href="#" onClick="getPlanBands('FRIDAY')">FRIDAY</a></li>
+                            <li><a href="#" onClick="getPlanBands('SATURDAY')">SATURDAY</a></li>
+                            <li><a href="#" onClick="getPlanBands('SUNDAY')">SUNDAY</a></li>
+                        </ul>
+        	</div>
+            
+            
+                <div data-role="header" data-position="inline">
+                <a href="#" data-rel="back" data-icon="home" data-iconpos="notext" data-theme="c"  data-transition="slide">Home</a>
+                    <h1 id="dayHeading">Day Plan</h1>
+                 <a href="#daypanel" data-icon="gear" data-theme="c" data-iconpos="right">Day</a>
+                </div>
+                
+                	<div class="wrapper">
+               	 	<div id="bg_plan" data-role="content" data-theme="c" >
+                    <div id="favbandholder">
+                    </div>
+               		
+                	</div>
+                    </div>
+                    <div data-role="popup" id="confirmdel" data-overlay-theme="a" data-theme="a" data-corners="true" data-position-to="window">
+                             <div data-role="header" data-theme="a" class="ui-corner-top">
+                                <h1>Remove</h1>
+                            </div>
+                            <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
+                                <h3 class="ui-title">Remove Band From Your List</h3>
+                                <a href="#" data-role="button" data-inline="true" data-rel="back" data-theme="c">Cancel</a>
+                                <a id="delkev" href="#" data-role="button" data-inline="true" data-rel="back" data-transition="flow" data-theme="b">Remove</a>
+                            </div>
+					</div>
+                    
+                    
+                </div>
+        
+        
+        
+        
+        
+        
+        
+        
+	</body>
+    
+    <script type="text/javascript">
+	var gday=5;
+	$(document).ready(function() {
+				
+				/*
+				navigator.splashscreen.show();
+				setTimeout(function(){
+					navigator.splashscreen.hide();
+					},5000);
+				*/
+        createdbFile();
+		//$(".bg_sun").css("height", window.innerHeight);
+		//$("#bg_band").css("height", window.innerHeight);
+		//$("#bg_plan").css("height", window.innerHeight);
+		
+		
+		
+		
+		$("#friday").on('click', function(){
+			gday=5;
+			var stage = $("#stageHeading").text();
+			getStageBands(stage);
+			$(this).buttonMarkup({theme: 'b'});
+			$("#saturday").buttonMarkup({theme: 'c'});
+			$("#sunday").buttonMarkup({theme: 'c'});
+			event.preventDefault();
+				event.stopPropagation();
+			return false;
+		});
+		$("#saturday").on('click', function(){
+			gday=6;
+			var stage = $("#stageHeading").text();
+			getStageBands(stage);
+			$(this).buttonMarkup({theme: 'b'});
+			$("#friday").buttonMarkup({theme: 'c'});
+			$("#sunday").buttonMarkup({theme: 'c'});
+			event.preventDefault();
+				event.stopPropagation();
+			return false;
+		});
+		$("#sunday").on('click', function(){
+			gday=0;
+			var stage = $("#stageHeading").text();
+			getStageBands(stage);
+			$(this).buttonMarkup({theme: 'b'});
+			$("#friday").buttonMarkup({theme: 'c'});
+			$("#saturday").buttonMarkup({theme: 'c'});
+			event.preventDefault();
+			event.stopPropagation();
+			return false;
+		});
+	
+	
+		$("#favbandholder").on('click', 'a.delfav', function(){
+				var id = $(this).text();
+				var removeBand = this;
+				var day = $("#dayHeading").text();
+				removeFav(id);
+				$(removeBand).parent().animate({height:0},300,function(){
+						getFavBands(day);
+					}
+				);
+				$(removeBand).parent().text("");
+				event.preventDefault();
+				event.stopPropagation();
+				return false;	
+			
+			});
+		
+		
+		$("#bandholder").on('click', 'a.stars', function(){
+			var id = $(this).text();			
+			if($(this).parent().hasClass("fav"))
+			{
+				$(this).parent().removeClass("fav");
+				removeFav(id);
+				
+			}else{
+				$(this).parent().addClass("fav");
+				addToFav(id);
+				
+			}
+			
+			/*
+			
+			$(this).parent().css({ "z-index": 0});
+			
+				$(this).parent().animate({ "z-index": 360},{
+					step: function(now, fx){
+						$(this).css('-webkit-transform','rotateX('+now+'deg)');
+						 $(this).css('-moz-transform','rotateX('+now+'deg)'); 
+						  $(this).css('-ms-transform','rotateX('+now+'deg)');
+						  $(this).css('-o-transform','rotateX('+now+'deg)');
+						  $(this).css('transform','rotateX('+now+'deg)');
+						},
+						duration:'slow'
+						},'linear');
+			*/
+			event.stopPropagation();
+		event.preventDefault();
+		return false;
+		});
+		
+    });
+	
+	
+	
+	
+	
+	
+	</script>
+    
+</html>
